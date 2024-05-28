@@ -13,7 +13,7 @@ TOKEN ='7366559089:AAHinD-nKW-vH1OsvWwmNTtqyA5hLL6pWf8'
 #https://api.telegram.org/bot7366559089:AAHinD-nKW-vH1OsvWwmNTtqyA5hLL6pWf8/getUpdates
 
 # webhook
-#https://api.telegram.org/bot7366559089:AAHinD-nKW-vH1OsvWwmNTtqyA5hLL6pWf8/setWebhook?url=https://68c7de2dd94151.lhr.life
+#https://api.telegram.org/bot7366559089:AAHinD-nKW-vH1OsvWwmNTtqyA5hLL6pWf8/setWebhook?url=https://bot-deploy-rossmann-sales-forecast.onrender.com/
 
 # Bot send msg- mensagem enviadas pro bot
 #https://api.telegram.org/bot7366559089:AAHinD-nKW-vH1OsvWwmNTtqyA5hLL6pWf8/sendMessage?chat_id=7270631089&text=Hi Thiago, Im doing good.
@@ -44,7 +44,7 @@ def load_dataset(store_id):
         # convert dataframe to json
         data = json.dumps( df_test.to_dict(orient='records'))
     else:
-        data = 'erro'
+        data = 'error'
 
     return data
 
@@ -80,7 +80,7 @@ app = Flask(__name__)
 def index ():
     if request.method == 'POST':
         message = request.get_json()
-        chat_id, store_id = parse_message (message)
+        chat_id, store_id = parse_message(message)
 
         if store_id != 'error':
             #loading data
@@ -96,15 +96,15 @@ def index ():
                     d2.loc['store'].values[0],
                     d2.loc['predictions'].values[0])
                 
-                send_message ( chat_id, msg)
+                send_message( chat_id, msg)
                 return Response('OK', status=200)
                        
             else:
-                send_message ( chat_id, 'Store ID not avaiable')
+                send_message( chat_id, 'Store ID not avaiable')
                 return Response('OK', status=200)
             
         else:
-            send_message ( chat_id, 'Store ID is wrong')
+            send_message( chat_id, 'Store ID is wrong')
             return Response('OK', status=200)
 
     else:
