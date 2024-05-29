@@ -93,8 +93,7 @@ def index ():
                 d2 = d1.loc[:, ['store', 'predictions']].groupby('store').sum().reset_index()
                 #message
                 msg = 'Store n. {} tem previsão de R$ {:,.2f} em vendas nas próximas 6 semanas'.format(
-                    d2.loc['store'].values[0],
-                    d2.loc['predictions'].values[0])
+                    d2['store'].values[0], d2['predictions'].values[0])
                 
                 send_message( chat_id, msg)
                 return Response('OK', status=200)
